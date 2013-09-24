@@ -45,3 +45,9 @@ The following steps assume a Linux environment; other systems may differ.
 4. The files (one IATI-XML file per country/region) will be output to:
 
         /afd
+
+## Troubleshooting
+
+The site downloads the data that is scraped each night from the AFD website by
+Scraperwiki. Sometimes, the Scraperwiki site times out, so if you get a timeout
+error, just try running the script again.
