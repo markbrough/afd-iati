@@ -24,6 +24,7 @@ import os
 import unicodecsv
 from datetime import datetime
 from lib import afdhelpers
+import iatisegmenter
 
 URL = "https://api.scraperwiki.com/api/1.0/datastore/sqlite?format=csv&name=afd_1&query=select+*+from+%60swdata%60&apikey="
 countries_csv = 'lib/french_country_codes.csv'
@@ -201,6 +202,7 @@ def download_data():
         if row["document_url"] != "":
             document_link = Element("document-link")
             document_link.set("url", row["document_url"])
+            document_link.set("format", "application/pdf")
             document_title = Element("title")
             document_title.text = row["document_name"]
             document_link.append(document_title)
@@ -213,8 +215,8 @@ def download_data():
         transaction = Element("transaction")
         activity.append(transaction)
         ttype = Element("transaction-type")
-        ttype.set("code", "D")
-        ttype.text = "Disbursement"
+        ttype.set("code", "C")
+        ttype.text = "Commitment"
         transaction.append(ttype)
 
         tvalue = Element("value")
@@ -252,7 +254,11 @@ def download_data():
         doc=removeDuplicates(doc)
         doc = ElementTree(doc)
         doc.write(XMLfilename,encoding='utf-8', xml_declaration=True)
-        print "Done."
+        print "Segmenting files..."
+        prefix = 'afd'
+        output_directory = os.path.realpath('afd')+'/'
+        iatisegmenter.segment_file(prefix, XMLfilename, output_directory)
+        print "Done"
 
     except urllib2.HTTPError, e:
         print "Error %s" % str(e)
