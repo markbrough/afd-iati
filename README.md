@@ -28,16 +28,20 @@ THE SOFTWARE.
 
 The following steps assume a Linux environment; other systems may differ.
 
-1. Install the requirements. It's recommended you setup a `virtualenv` for this:
+1. Clone the repository:
+
+        git clone git@github.com:markbrough/afd-iati.git
+
+2. Install the requirements. It's recommended you setup a `virtualenv` for this:
 
         virtualenv ./pyenv
         source ./pyenv/bin/activate
         pip install -r requirements.txt
 
-2. Run the script:
+3. Run the script:
 
         ./afd.py
 
-3. The files (one IATI-XML file per country/region) will be output to:
+4. The files (one IATI-XML file per country/region) will be output to:
 
         /afd
